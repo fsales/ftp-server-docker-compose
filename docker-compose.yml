@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  ftp:
+    container_name: ftp-local
+    image: bogem/ftp
+    ports:
+      - "20:20"
+      - "21:21"
+      - "47400:47400"
+      - "47401:47401"
+      - "47402:47402"
+      - "47403:47403"
+
+    environment:
+      - FTP_USER=${FTP_USER}
+      - FTP_PASS=${FTP_PASS}
+      - PASV_ADDRESS=127.0.0.2
+      - PUBLICHOST=127.0.0.1
+    volumes:
+      - ./.docker/ftpserver:/home/vsftpd
+    networks:
+      - ftp-rede
+networks:
+  ftp-rede:
+    driver: bridge
